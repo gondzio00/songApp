@@ -2,12 +2,9 @@ package pl.gondzio.songApp.domain.dto;
 
 import lombok.Data;
 import pl.gondzio.songApp.domain.model.Song;
-
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.net.URL;
-import java.util.Set;
 
 @Data
 public class SongInsert {

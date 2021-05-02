@@ -23,7 +23,7 @@ public class SongGroup implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private int name;
+    private String name;
 
     private URL backgroundImage;
 

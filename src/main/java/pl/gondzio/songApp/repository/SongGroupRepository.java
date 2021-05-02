@@ -5,12 +5,15 @@ import org.springframework.stereotype.Repository;
 import pl.gondzio.songApp.domain.model.SongGroup;
 import pl.gondzio.songApp.domain.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface SongGroupRepository extends JpaRepository<SongGroup, Integer> {
     Optional<SongGroup> findOneByOwner(User user);
 
-    Optional<SongGroup> findOneByOwnerIsNull();
+    Optional<List<SongGroup>> findByOwnerIsNull();
+
+    Optional<SongGroup> findOne(int id);
 }
 

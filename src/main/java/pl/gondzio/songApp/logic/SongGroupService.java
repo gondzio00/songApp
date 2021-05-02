@@ -8,6 +8,7 @@ import pl.gondzio.songApp.domain.model.SongGroup;
 import pl.gondzio.songApp.repository.SongGroupRepository;
 import pl.gondzio.songApp.repository.SongRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -24,30 +25,22 @@ public class SongGroupService {
         this.songRepository = songRepository;
     }
 
-    public Optional<SongGroup> getMainSongGroup() {
-        return songGroupRepository.findOneByOwnerIsNull();
+    public Optional<List<SongGroup>> getMainSongGroup() {
+        return songGroupRepository.findByOwnerIsNull();
     }
 
-    public SongGroup addSongToMainGroup(SongInsert song) throws Exception {
+    public SongGroup addSongToMainGroup(SongGroup group,SongInsert song){
 
-        Optional<SongGroup> songGroup = songGroupRepository.findOneByOwnerIsNull();
+        Song dbSong = songRepository.save(song.toSong());
+        Set<Song> songs = group.getSongs();
+        songs.add(dbSong);
+        group.setSongs(songs);
+        songGroupRepository.save(group);
 
-        if(songGroup.isPresent()){
+        return group;
+    }
 
-            SongGroup group = songGroup.get();
-
-            Song dbSong = songRepository.save(song.toSong());
-
-            Set<Song> songs = group.getSongs();
-            songs.add(dbSong);
-            group.setSongs(songs);
-
-            songGroupRepository.save(group);
-
-            return group;
-        }
-
-        throw new Exception("Main song group not found");
-
+    public Optional<SongGroup> findGroup(int id) {
+        return songGroupRepository.findOne(id);
     }
 }

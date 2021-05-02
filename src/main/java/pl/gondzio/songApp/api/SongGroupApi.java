@@ -32,22 +32,30 @@ public class SongGroupApi {
     private final SongGroupService songGroupService;
 
     @GetMapping("main")
-    public ResponseEntity<SongGroup> getAllSongGroups(){
+    public ResponseEntity<List<SongGroup>> getAllSongGroups(){
 
-        Optional<SongGroup> group = songGroupService.getMainSongGroup();
+        Optional<List<SongGroup>> listGroup = songGroupService.getMainSongGroup();
 
-        if(group.isPresent()){
-            return ResponseEntity.status(HttpStatus.OK).body(group.get());
+        if(listGroup.isPresent()){
+            return ResponseEntity.status(HttpStatus.OK).body(listGroup.get());
         }
 
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("add")
-    public ResponseEntity<SongGroup> addSongToMainGroup(@RequestBody @Valid SongInsert song) throws Exception {
-        SongGroup group = songGroupService.addSongToMainGroup(song);
+    @PostMapping("add/{id}")
+    public ResponseEntity<SongGroup> addSongToMainGroup(@RequestBody @Valid SongInsert song, @PathVariable int id) throws Exception {
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(group);
+        Optional<SongGroup> songGroup = songGroupService.findGroup(id);
+
+        if(songGroup.isPresent()){
+            SongGroup group = songGroupService.addSongToMainGroup(songGroup.get(),song);
+            return ResponseEntity.status(HttpStatus.CREATED).body(group);
+        }
+
+        return ResponseEntity.notFound().build();
+
+
     }
 
 }

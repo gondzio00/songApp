@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import pl.gondzio.songApp.repository.UserRepository;
 
 import javax.servlet.http.HttpServletResponse;
@@ -77,7 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Enable CORS and disable CSRF
-        http = http.cors().and().csrf().disable();
+
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+
+        http = http.csrf().disable();
 
         // Set session management to stateless
         http = http

@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,6 +22,10 @@ public class SongGroup implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    private int name;
+
+    private URL backgroundImage;
 
     @CreatedDate
     private LocalDateTime createdAt;

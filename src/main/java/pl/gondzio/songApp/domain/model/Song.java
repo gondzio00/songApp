@@ -23,6 +23,9 @@ public class Song implements Serializable {
     private int id;
 
     private String name;
+
+    private URL backgroundImage;
+
     private URL url;
 
     @CreatedDate

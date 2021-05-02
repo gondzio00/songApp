@@ -14,6 +14,6 @@ public interface SongGroupRepository extends JpaRepository<SongGroup, Integer> {
 
     Optional<List<SongGroup>> findByOwnerIsNull();
 
-    Optional<SongGroup> findOne(int id);
+    Optional<SongGroup> findOneById(int id);
 }
 

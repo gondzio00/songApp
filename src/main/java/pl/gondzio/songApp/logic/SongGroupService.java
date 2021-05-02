@@ -41,6 +41,6 @@ public class SongGroupService {
     }
 
     public Optional<SongGroup> findGroup(int id) {
-        return songGroupRepository.findOne(id);
+        return songGroupRepository.findOneById(id);
     }
 }
